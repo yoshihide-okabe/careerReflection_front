@@ -32,8 +32,17 @@ export default function Select() {
     }); // 次の画面に遷移
   };
 
-  return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
+ return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column", // 縦方向に配置
+        alignItems: "center", // 水平方向中央揃え
+        justifyContent: "center", // 垂直方向中央揃え
+        textAlign: "center",
+        marginTop: "50px",
+      }}
+    >
       <h1>
         今日はどんな日だった？
         <br />
@@ -42,15 +51,18 @@ export default function Select() {
       <img
         src="/cat.png" // ローカルの猫画像
         alt="cat"
-        style={{ width: "200px", height: "200px" }}
+        style={{
+          width: "150px",
+          height: "200px",
+          marginBottom: "20px", // 猫画像とボタンの間隔
+        }}
       />
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)", // 横4つ
-          gap: "10px", // ボタン間の余白
-          justifyContent: "center",
-          marginTop: "20px",
+          gridTemplateColumns: "repeat(4, 120px)", // ボタンを4列に配置
+          gap: "10px", // ボタン間の上下左右余白
+          justifyContent: "center", // ボタンを中央揃え
         }}
       >
         {emotions.map((emotion, index) => (
@@ -61,13 +73,15 @@ export default function Select() {
               backgroundColor: emotion.color,
               color: "white",
               border: "none",
-              borderRadius: "20px", // ラウンドした角
-              padding: "10px 20px",
-              fontSize: "24px",
-              fontWeight: "bold", // 太字を適用
+              borderRadius: "20px",
+              width: "120px",
+              height: "60px",
+              fontSize: "18px",
+              fontWeight: "bold",
               cursor: "pointer",
-              minWidth: "40px", // ボタンの幅
-              textAlign: "center",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             {emotion.label}
@@ -75,5 +89,5 @@ export default function Select() {
         ))}
       </div>
     </div>
-  );
+  );  
 }
