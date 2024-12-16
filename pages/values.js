@@ -1,86 +1,120 @@
-import Image from "next/image";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import axios from "axios";
 
-export default function CatEnd() {
+export default function Values() {
   const router = useRouter();
+  const { values } = router.query;
+  const parsedValues = values ? JSON.parse(values) : {};
+  const [assessment, setAssessment] = useState(3); // 初期値: 3
+  const [awareness, setAwareness] = useState("");
 
-  // 足跡の配列 (9個の黒 + 1個のカラー足跡)
-  const footprints = Array(10).fill("black");
-  footprints[Math.floor(Math.random() * 10)] = "color"; // カラー足跡をランダムに1つ配置
-
-  const handleReview = () => {
-    router.push("/"); // ルートに戻る
+  const handleSubmit = async () => {
+    try {
+      await axios.post("/api/feedback", {
+        assess: assessment,
+        awareness,
+      });
+      router.push("/catend"); // 5番目の画面に遷移
+    } catch (error) {
+      console.error("Error sending feedback:", error);
+    }
   };
 
   return (
-    <div
-      style={{
-        margin: "20px",
-        textAlign: "center",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
-      <h1 style={{ marginBottom: "20px" }}>一歩ずつ進んでいこう</h1>
-
+    <div style={{ margin: "20px", fontFamily: "Arial, sans-serif" }}>
       {/* 猫の画像 */}
-      <div style={{ marginBottom: "20px" }}>
-        <Image
-          src="/cat.png" // 猫の画像ファイル
+      <div style={{ textAlign: "center", marginBottom: "20px" }}>
+        <img
+          src="/cat.png"
           alt="Cat"
-          width={100}
-          height={100}
+          style={{ width: "120px", height: "auto" }}
         />
       </div>
 
-      {/* 足跡の配置 */}
+      {/* 価値観分析結果 */}
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "10px", // 足跡間の間隔
+          padding: "20px",
+          borderRadius: "10px",
+          border: "1px solid #ccc",
+          marginBottom: "20px",
         }}
       >
-        {footprints.map((color, index) => (
-          <div
-            key={index}
-            style={{
-              display: "flex",
-              justifyContent: index % 2 === 0 ? "flex-start" : "flex-end", // ジグザグ配置
-              width: "100%",
-              maxWidth: "200px", // 足跡の最大幅
-            }}
-          >
-            <Image
-              src={
-                color === "black"
-                  ? `/footprints.png` // 黒い足跡
-                  : `/footprints_color.png` // カラー足跡
-              }
-              alt="Footprint"
-              width={color === "black" ? 50 : 75} // カラーの場合は1.5倍
-              height={color === "black" ? 50 : 75} // カラーの場合は1.5倍
-            />
-          </div>
-        ))}
+        {parsedValues.value_analysis}
       </div>
 
-      {/* ボタン */}
-      <button
-        onClick={handleReview}
+      {/* 評価 */}
+      <h2>この価値観分析の結果はどう？</h2>
+      <div
+  style={{
+    display: "flex",
+    justifyContent: "space-evenly", // 均等配置
+    marginBottom: "20px",
+  }}
+>
+  {[1, 2, 3, 4, 5].map((score) => (
+    <label
+      key={score}
+      style={{
+        fontSize: "24px", // ラベルのフォントサイズ
+        margin: "0 5px", // ラジオボタン間の余白を小さく
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <input
+        type="radio"
+        name="assessment"
+        value={score}
+        checked={assessment === score}
+        onChange={() => setAssessment(score)}
         style={{
-          marginTop: "20px",
+          width: "30px", // ラジオボタンの大きさを10倍
+          height: "30px",
+          transform: "scale(1.0)", // ラジオボタン自体の拡大
+          marginBottom: "5px",
+          cursor: "pointer",
+        }}
+      />
+      {score}
+    </label>
+  ))}
+</div>
+
+
+      {/* コメント入力 */}
+      <h2>今はどんな気持ち？</h2>
+      <textarea
+        value={awareness}
+        onChange={(e) => setAwareness(e.target.value)}
+        placeholder="ここに入力してください"
+        style={{
           width: "80%",
-          padding: "15px 30px",
-          fontSize: "20px",
+          height: "80px",
+          borderRadius: "10px",
+          border: "1px solid #ccc",
+          padding: "10px",
+          marginBottom: "20px",
+        }}
+      />
+
+      {/* 送信ボタン */}
+      <button
+        onClick={handleSubmit}
+        style={{
+          width: "80%",
+          padding: "10px",
+          fontSize: "28px",
           cursor: "pointer",
           backgroundColor: "#F9A825",
-          color: "white",
           border: "none",
           borderRadius: "30px",
+          color: "white",
         }}
       >
-        10日間を振り返る
+        入力完了！
       </button>
     </div>
   );
