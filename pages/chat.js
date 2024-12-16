@@ -44,9 +44,9 @@ export default function Result() {
         <img
           src="/cat.png" // ローカルの猫画像
           alt="cat"
-          style={{ width: "50px", height: "50px", marginRight: "10px" }}
+          style={{ width: "45px", height: "60px", marginRight: "10px" }}
         />
-        <h2 style={{ fontSize: "18px", margin: 0 }}>
+        <h2 style={{ fontSize: "24px", margin: 0 }}>
           今日はどんなことがあった？
         </h2>
       </div>
@@ -72,9 +72,9 @@ export default function Result() {
         <img
           src="/cat.png" // ローカルの猫画像
           alt="cat"
-          style={{ width: "50px", height: "50px", marginRight: "10px" }}
+          style={{ width: "45px", height: "60px", marginRight: "10px" }}
         />
-        <h2 style={{ fontSize: "18px", margin: 0 }}>
+        <h2 style={{ fontSize: "24px", margin: 0 }}>
           そのときはどんな気持ちだった？
         </h2>
       </div>
@@ -100,9 +100,9 @@ export default function Result() {
         <img
           src="/cat.png" // ローカルの猫画像
           alt="cat"
-          style={{ width: "50px", height: "50px", marginRight: "10px" }}
+          style={{ width: "45px", height: "60px", marginRight: "10px" }}
         />
-        <h2 style={{ fontSize: "18px", margin: 0 }}>どんな意見を持った？</h2>
+        <h2 style={{ fontSize: "24px", margin: 0 }}>どんな意見を持った？</h2>
       </div>
       <textarea
         name="answer3"
