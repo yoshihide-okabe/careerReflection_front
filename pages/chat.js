@@ -19,7 +19,6 @@ export default function Result() {
   const handleNext = async () => {
     try {
       const response = await axios.post("/api/process", {
-        feel,
         event: answers.answer1,
         emotion: answers.answer2,
         opinion: answers.answer3,
