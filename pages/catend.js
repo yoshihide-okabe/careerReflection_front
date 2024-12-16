@@ -24,7 +24,7 @@ export default function CatEnd() {
         <Image
           src="/cat.png" // 猫の画像ファイル
           alt="Cat"
-          width={100}
+          width={75}
           height={100}
         />
       </div>
