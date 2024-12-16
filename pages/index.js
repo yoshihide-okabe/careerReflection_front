@@ -13,7 +13,7 @@ export default function Home() {
       <img
         src="/cat.png" // ローカルの猫画像
         alt="cat"
-        style={{ width: "200px", height: "200px" }}
+        style={{ width: "150px", height: "200px" }}
       />
       <h1>
         毎日の振り返りから
