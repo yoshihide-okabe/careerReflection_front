@@ -5,6 +5,7 @@ import Image from "next/image";
 export default function Result() {
   const router = useRouter();
   const { emotion: feel } = router.query; // 2番目の画面で選択した感情
+  const [isClient, setIsClient] = useState(false);
   const [answers, setAnswers] = useState({
     answer1: "",
     answer2: "",
