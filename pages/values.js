@@ -27,7 +27,7 @@ export default function Values() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ evnt: event, emotion: emotion, opinion: opinion }),
+          body: JSON.stringify({ event: event, emotion: emotion, opinion: opinion }),
         });
 
         if (!res.ok) {
