@@ -9,9 +9,17 @@ export default function Values() {
   const [assessment, setAssessment] = useState(3);
   const [awareness, setAwareness] = useState("");
 
-  // バックエンドにデータを送信してレスポンスを取得
-  
+  // router.query の初期値をコンソールに出力
   useEffect(() => {
+    console.log("router.query の初期値:", router.query);
+  }, [router.query]); // router.query が変更されるたびに出力
+  
+  // バックエンドにデータを送信してレスポンスを取得
+  useEffect(() => {
+    if (!event || !emotion || !opinion) {
+      return; // queryパラメータが不足している場合は処理を終了
+    }  
+
     const fetchData = async () => {
       try {
         const res = await fetch('https://tech0-gen-8-step3-app-py-12.azurewebsites.net/api/process', {
