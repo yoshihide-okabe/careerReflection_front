@@ -10,18 +10,32 @@ export default function Values() {
   const [awareness, setAwareness] = useState("");
 
   // バックエンドにデータを送信してレスポンスを取得
+  
   useEffect(() => {
-    const res = await fetch('https://tech0-gen-8-step3-app-py-12.azurewebsites.net/api/process', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ "evnt":event, "emotion":emotion, "opinion":opinion }),
-    });
-    const data = await res.json();
+    const fetchData = async () => {
+      try {
+        const res = await fetch('https://tech0-gen-8-step3-app-py-12.azurewebsites.net/api/process', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ evnt: event, emotion: emotion, opinion: opinion }),
+        });
 
-    setValues(data.values);
-  };
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+
+        const data = await res.json();
+        setValues(data.values);
+      } catch (error) {
+        console.error('エラーが発生しました:', error);
+      }
+    };
+
+    fetchData();
+  }, [event, emotion, opinion]); // 依存配列に必要な変数を追加
+
 
   const handleSubmit = async () => {
     try {
