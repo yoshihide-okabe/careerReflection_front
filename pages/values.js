@@ -1,13 +1,29 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function Values() {
   const router = useRouter();
-  const { values } = router.query;
-  const parsedValues = values ? JSON.parse(values) : {};
-  const [assessment, setAssessment] = useState(3); // 初期値: 3
+  const { event, emotion, opinion } = router.query;
+  const [values, setValues] = useState(null);
+  const [assessment, setAssessment] = useState(3);
   const [awareness, setAwareness] = useState("");
+
+  // バックエンドにデータを送信してレスポンスを取得
+  useEffect(() => {
+    if (router.isReady && event && emotion && opinion) {
+      axios
+        .post("/api/process", {
+          event,
+          emotion,
+          opinion,
+        })
+        .then((response) => {
+          setValues(response.data.values);
+        })
+        .catch((error) => console.error("Error fetching values:", error));
+    }
+  }, [router.isReady, event, emotion, opinion]);
 
   const handleSubmit = async () => {
     try {
@@ -15,7 +31,7 @@ export default function Values() {
         assess: assessment,
         awareness,
       });
-      router.push("/catend"); // 5番目の画面に遷移
+      router.push("/catend");
     } catch (error) {
       console.error("Error sending feedback:", error);
     }
@@ -41,7 +57,7 @@ export default function Values() {
           marginBottom: "20px",
         }}
       >
-        {parsedValues.value_analysis}
+        {values ? <div>{values.value_analysis}</div> : <p>データを取得中...</p>}
       </div>
 
       {/* 評価 */}
