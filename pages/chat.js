@@ -1,7 +1,3 @@
-import { useRouter } from "next/router";
-import { useState } from "react";
-import axios from "axios";
-
 export default function Result() {
   const router = useRouter();
   const { emotion: feel } = router.query; // 2番目の画面で選択した感情
@@ -16,22 +12,16 @@ export default function Result() {
     setAnswers({ ...answers, [name]: value });
   };
 
-  const handleNext = async () => {
-    try {
-      const response = await axios.post("/api/process", {
-        event: answers.answer1,
-        emotion: answers.answer2,
-        opinion: answers.answer3,
-      });
-
-      const values = response.data.values;
-      router.push({
-        pathname: "/values",
-        query: { values: JSON.stringify(values) },
-      });
-    } catch (error) {
-      console.error("Error sending data to backend:", error);
-    }
+  // 4番目の画面に入力内容を渡す
+  const handleNext = () => {
+    router.push({
+      pathname: "/values",
+      query: {
+        event: answers.answer1, // 質問1の入力内容
+        emotion: answers.answer2, // 質問2の入力内容
+        opinion: answers.answer3, // 質問3の入力内容
+      },
+    });
   };
 
   return (
