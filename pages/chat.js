@@ -23,6 +23,9 @@ export default function Result() {
       },
     });
   };
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   return (
     <div style={{ margin: "20px", fontFamily: "Arial, sans-serif" }}>
