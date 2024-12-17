@@ -1,3 +1,7 @@
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import Image from "next/image";
+
 export default function Result() {
   const router = useRouter();
   const { emotion: feel } = router.query; // 2番目の画面で選択した感情
