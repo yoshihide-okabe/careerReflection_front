@@ -11,19 +11,17 @@ export default function Values() {
 
   // バックエンドにデータを送信してレスポンスを取得
   useEffect(() => {
-    if (router.isReady && event && emotion && opinion) {
-      axios
-        .post("/api/process", {
-          event,
-          emotion,
-          opinion,
-        })
-        .then((response) => {
-          setValues(response.data.values);
-        })
-        .catch((error) => console.error("Error fetching values:", error));
-    }
-  }, [router.isReady, event, emotion, opinion]);
+    const res = await fetch('https://tech0-gen-8-step3-app-py-12.azurewebsites.net/api/process', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ "evnt":event, "emotion":emotion, "opinion":opinion }),
+    });
+    const data = await res.json();
+
+    setValues(data.values);
+  };
 
   const handleSubmit = async () => {
     try {
@@ -57,7 +55,7 @@ export default function Values() {
           marginBottom: "20px",
         }}
       >
-        {values ? <div>{values.value_analysis}</div> : <p>データを取得中...</p>}
+        {values ? <div>{values}</div> : <p>データを取得中...</p>}
       </div>
 
       {/* 評価 */}
