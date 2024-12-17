@@ -59,6 +59,8 @@ export default function Result() {
           border: "1px solid #ccc",
           padding: "10px",
           marginBottom: "20px",
+          fontFamily: "'Arial', 'Helvetica', sans-serif", // フォントを変更
+          fontSize: "24px" // フォントサイズも変更可能
         }}
       />
 
@@ -87,6 +89,8 @@ export default function Result() {
           border: "1px solid #ccc",
           padding: "10px",
           marginBottom: "20px",
+          fontFamily: "'Arial', 'Helvetica', sans-serif", // フォントを変更
+          fontSize: "24px" // フォントサイズも変更可能
         }}
       />
 
@@ -113,6 +117,8 @@ export default function Result() {
           border: "1px solid #ccc",
           padding: "10px",
           marginBottom: "20px",
+          fontFamily: "'Arial', 'Helvetica', sans-serif", // フォントを変更
+          fontSize: "24px" // フォントサイズも変更可能
         }}
       />
 
