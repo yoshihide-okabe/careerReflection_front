@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>今日もお疲れ様でした</h1>
+      <h1>今日もお疲れ様でした！</h1>
       <img
         src="/cat.png" // ローカルの猫画像
         alt="cat"
